@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=SDkAGkd4NLc
+
 # Discord Bot for Server Status
 
 This Discord bot provides real-time server status information such as CPU usage, RAM usage, network traffic, and server ping. It uses the `discord.py`, `psutil`, and `requests` libraries to gather system information and interact with the Discord API.
