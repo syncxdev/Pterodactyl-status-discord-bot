@@ -1,6 +1,7 @@
 import discord
 import psutil
 import asyncio
+import math
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='!')
@@ -12,16 +13,15 @@ async def update_status():
     while not bot.is_closed():
         cpu_percent = psutil.cpu_percent()
         ram_percent = psutil.virtual_memory().percent
-        total_ram = psutil.virtual_memory().total / (1024**3)
+        total_ram = math.ceil(psutil.virtual_memory().total / (1024**3))  
         used_ram = psutil.virtual_memory().used / (1024**3)
+        used_ram = math.ceil(used_ram)  
 
-       
         net_io = psutil.net_io_counters()
-        network_inbound = net_io.bytes_recv / (1024**2)
-        network_outbound = net_io.bytes_sent / (1024**2)  
+        network_inbound = math.ceil(net_io.bytes_recv / (1024**2))  # Aufrunden auf die nächste Ganzzahl
+        network_outbound = math.ceil(net_io.bytes_sent / (1024**2))  # Aufrunden auf die nächste Ganzzahl
 
-       
-        server_ping = bot.latency * 1000 
+        server_ping = bot.latency * 1000
 
         embed = discord.Embed(title="Serverstatus", color=discord.Color.blue())
         embed.add_field(name="CPU-Auslastung", value=f"{cpu_percent}%", inline=False)
@@ -32,20 +32,21 @@ async def update_status():
         embed.add_field(name="Network (Outbound)", value=f"{network_outbound} MB", inline=False)
         embed.add_field(name="Server-Ping", value=f"{server_ping} ms", inline=False)
 
-        channel = bot.get_channel(1104357841625677824)  # YOUR_CHANNEL_ID
+        channel = bot.get_channel(123445565452343243)  # YOUR_CHANNEL_ID
 
         if status_message:
-            await status_message.delete() 
+            await status_message.delete()
 
-        status_message = await channel.send(embed=embed)  
+        status_message = await channel.send(embed=embed)
 
-        await asyncio.sleep(5)  #  Time for resend
+        await asyncio.sleep(60)  
 
 @bot.event
 async def on_ready():
     print(f'Bot ist eingeloggt als {bot.user.name}')
     print('-----')
-    bot.loop.create_task(update_status())  # Starte Serverstatus
+    bot.loop.create_task(update_status()) 
 
 
-bot.run("")
+bot.run("DEIN_BOT_TOKEN")
+
