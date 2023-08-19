@@ -1,6 +1,6 @@
-https://www.youtube.com/watch?v=SDkAGkd4NLc
-
 # Discord Bot for Server Status
+
+![Server Status](https://example.com/server_status_image.png) <!-- Hier könntest du ein Bild oder einen Screenshot des Bots oder seiner Funktionalität einfügen -->
 
 This Discord bot provides real-time server status information such as CPU usage, RAM usage, network traffic, and server ping. It uses the `discord.py`, `psutil`, and `requests` libraries to gather system information and interact with the Discord API.
 
@@ -14,6 +14,9 @@ Before running the bot, make sure you have the following prerequisites installed
 - requests
 
 You can install the required packages by running the following command:
+
+```bash
+pip install discord.py psutil requests
 
 
 ## Configuration
