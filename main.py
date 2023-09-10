@@ -1,3 +1,9 @@
+# Credit:
+# Discord Developer/Co.owner: ogdev_
+# Discord Owner: xdevcipher
+# support Server: https://discord.gg/pXtn3ndKET
+
+
 import discord
 import psutil
 import asyncio
@@ -6,7 +12,11 @@ import platform
 from discord.ext import commands
 from datetime import datetime, timedelta
 
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+intents.typing = False
+intents.presences = False
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 status_message = None
 
 async def update_status():
@@ -33,15 +43,10 @@ async def update_status():
         system_info = platform.uname()
         system_cores = psutil.cpu_count(logical=False)
 
-     
         node_count = len(bot.guilds)
-
         server_count = len(bot.guilds)
-
-       
         member_count = sum(guild.member_count for guild in bot.guilds)
 
-        
         server_name = bot.get_guild(1054138859073589310).name
 
         uptime = datetime.utcnow() - bot.start_time
@@ -69,25 +74,13 @@ async def update_status():
         embed.add_field(name=":blue_book: Server Name", value=f"{server_name}", inline=True)
         embed.add_field(name=":clock3: Uptime", value=f"{uptime_string}", inline=False)
 
-        channel = bot.get_channel(1122541800658313336)  # YOUR_CHANNEL_ID
-
-        server = bot.get_guild(1054138859073589310)  # YOUR_SERVER_ID
-
-        if server.icon:
-            embed.set_thumbnail(url=server.icon_url)
-        else:
-            embed.set_thumbnail(url="https://example.com/default_thumbnail.png")
+        channel = bot.get_channel(1234)  # YOUR_CHANNEL_ID
+                                                        #support server:  https://discord.gg/pXtn3ndKET
 
         if status_message:
             await status_message.delete()
 
         status_message = await channel.send(embed=embed)
-
-        # Füge Animation hinzu
-        await status_message.edit(content="**Status wird überprüft...**")
-        await asyncio.sleep(5)
-        await status_message.edit(content="**Serverstatus**")
-        await asyncio.sleep(5)
 
         await asyncio.sleep(50)  # Time for resend
 
@@ -95,8 +88,7 @@ async def update_status():
 async def on_ready():
     print(f'Bot ist eingeloggt als {bot.user.name}')
     print('-----')
-    bot.start_time = datetime.utcnow()  # Speichere die Startzeit des Bots
+    bot.start_time = datetime.utcnow()  
     bot.loop.create_task(update_status())  
 
-bot.run("Dein-Bot-Token")
-
+bot.run("You-Bot-Token") # support server: https://discord.gg/pXtn3ndKET
